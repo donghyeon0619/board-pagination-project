@@ -13,8 +13,14 @@ public class NoticeService implements NoticeMapper{
     NoticeMapper noticeMapper;
 
     @Override
-    public List<Notice> selectNotice(Notice notice) throws SQLException {
-        return noticeMapper.selectNotice(notice);
+    public List<Notice> selectNotice(int page, int pageSize) throws SQLException {
+        int offset = (page - 1) * pageSize;
+        return noticeMapper.selectNotice(offset, pageSize);
+    }
+
+    @Override
+    public Notice selectNoticeDetails(Notice notice) throws SQLException {
+        return noticeMapper.selectNoticeDetails(notice);
     }
 
     @Override
@@ -30,5 +36,10 @@ public class NoticeService implements NoticeMapper{
     @Override
     public void deleteNotice(Notice notice) throws SQLException {
         noticeMapper.deleteNotice(notice);
+    }
+
+    @Override
+    public void updatePostHit(Notice notice) throws SQLException{
+        noticeMapper.updatePostHit(notice);
     }
 }
